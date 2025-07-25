@@ -3,6 +3,16 @@ from tkinter import *
 from PIL import Image, ImageTk
 from io import BytesIO
 
+def get_random_dog_image():
+    try:
+        response = requests.get('https://dog.ceo/api/breeds/image/random')
+        response.raise_for_status()
+        data = response.json()
+        return data['message']
+    except Exception as e:
+        messagebox.showerror("Ошибка", f"Ошибка при запросе к API: {e}")
+        return None
+
 
 def show_image():
     image_url = get_random_dog_image()
